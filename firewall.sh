@@ -1,7 +1,8 @@
-#!/bin/sh
+ #!/bin/sh
 # Copyright (C) 2017
 
-# Por Eduardo Campacci - 23/10/2017
+# FIREWALL HEWITT EQUIPAMENTOS LTDA
+# Por Eduardo Campacci - 07/09/2017
 
 
 ### RESETANDO E APLICANDO POLITICAS PADRAO
@@ -10,27 +11,34 @@ iptables -F -t nat
 iptables -F -t filter
 iptables -F -t mangle
 iptables -P INPUT DROP 
-iptables -P FORWARD DROP
+iptables -P FORWARD DROP 
 
-### ADICIONANDO MODULOS NO KERNEL
-modprobe ip_conntrack
-modprobe ip_conntrack_ftp
 
-### SETANDO ROTEAMENTO
-echo "1" > /proc/sys/net/ipv4/ip_forward
+### SETANDO ROTEAMENTO DEBIAN
+#echo "0" > /proc/sys/net/ipv4/ip_forward
+
+### SETANDO ROTEAMENTO CENTOS
+echo "net.ipv4.ip_forward = 1" > /etc/sysctl.conf
+
+### SETANDO OPCOES PARA BALANCEAMENTO E FAILOVER
+echo "0" > /proc/sys/net/ipv4/conf/default/rp_filter
+echo "10" > /proc/sys/net/ipv4/route/gc_timeout
 
 ### LOGS
-#iptables -t filter -A INPUT -j LOG --log-prefix "LOG INPUT - "
-#iptables -t filter -A FORWARD -j LOG --log-prefix "LOG FORWARD - "
+#iptables -t filter -A INPUT -j LOG
+#iptables -t filter -A FORWARD -j LOG
 
-### COMPARTILHAMENTO DE INTERNET
-iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+### COMPARTILHAMENTO INTERNET 
+# GVT
+iptables -t nat -A POSTROUTING -o enp0s3 -j MASQUERADE
+# Ricardo VIVO
+iptables -t nat -A POSTROUTING -o enp0s8 -j MASQUERADE
 
 ### DIRECIONAMENTO PARA SQUID 80 PARA 3128
-iptables -t nat -A PREROUTING -i eth1 -p tcp --dport 80 -j REDIRECT --to-port 3128
+#iptables -t nat -A PREROUTING -i eth1 -p tcp --dport 80 -j REDIRECT --to-port 3128
 
 
-### PACOTES MAL FORMADOS
+# PACOTES MAL FORMADOS
 # isso aceita as conexoes de input com o status "established" 
 # ou seja, quando ja foram enviados pacotes nas duas direcoes
 iptables -A INPUT -m state --state INVALID -j DROP
@@ -38,24 +46,7 @@ iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
 iptables -A FORWARD -m state --state INVALID -j DROP
 iptables -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT
 
-
-### REGRA OPENVPN SITE-TO-CLIENT COM REDES IGUAIS
-iptables -t nat -A PREROUTING -d 192.168.5.0/24 -j NETMAP --to 192.168.1.0/24
-
-### IPs LIBERADOS SQUID PROXY
-iptables -t nat -I PREROUTING -s 192.168.1.5 -j ACCEPT      # Servidor de Impressao
-iptables -t nat -I PREROUTING -s 192.168.1.16 -j ACCEPT     # Eduardo celular 
-iptables -t nat -I PREROUTING -s 192.168.1.15 -j ACCEPT     # Eduardo wifi
-iptables -t nat -I PREROUTING -s 192.168.1.14 -j ACCEPT     # Eduardo cabeado
-iptables -t nat -I PREROUTING -s 192.168.1.18 -j ACCEPT     # Lucas cabeado 
-#iptables -t nat -I PREROUTING -s 192.168.1.37 -j ACCEPT    # VM Windows
-iptables -t nat -I PREROUTING -s 192.168.1.90 -j ACCEPT     # Julia Vernaglia IPAD
-iptables -t nat -I PREROUTING -s 192.168.1.92 -j ACCEPT     # Julia Vernaglia Iphone 8
-
-
-
-
-### LIBERACAO DE PORTAS
+ ### LIBERACAO DE PORTAS
 
 # Squid
 iptables -t filter -I INPUT -p tcp --dport 3128 -j ACCEPT
@@ -179,12 +170,14 @@ iptables -t filter -I FORWARD -p tcp -m multiport --sports 10050,10051 -j ACCEPT
 # ntop 
 iptables -I INPUT -p tcp --dport 3000 -j ACCEPT
 # bacula
-#iptables -t filter -I INPUT -p tcp -m multiport --dports 9101,9102,9103 -j ACCEPT
+iptables -t filter -I INPUT -p tcp -m multiport --dports 9101,9102,9103 -j ACCEPT
 iptables -t filter -I FORWARD -p tcp -m multiport --dports 9101,9102,9103 -j ACCEPT
 iptables -t filter -I FORWARD -p tcp -m multiport --sports 9101,9102,9103 -j ACCEPT
 # Cobian
 iptables -t filter -I FORWARD -p tcp --dport 16020 -j ACCEPT
 iptables -t filter -I FORWARD -p tcp --sport 16020 -j ACCEPT
+iptables -t filter -I FORWARD -p tcp --dport 9339 -j ACCEPT
+iptables -t filter -I FORWARD -p tcp --sport 9339 -j ACCEPT
 # ocsinventory
 #iptables -t filter -I FORWARD -p tcp --dport 16020 -j ACCEPT
 # rdp
@@ -225,9 +218,13 @@ iptables -t filter -I FORWARD -p tcp --sport 5022 -j ACCEPT
 iptables -t filter -I FORWARD -p tcp -m multiport --dports 8001,8002,8003,9000,9001,9002,9003,9006,9007,9008,9009 -j ACCEPT
 # protheus 
 iptables -t filter -I FORWARD -p tcp -m multiport --dports 10088,10020,10021,10023,10025,6125,7444,10086,10031,10030 -j ACCEPT
+iptables -t filter -I FORWARD -p tcp --dport 6000 -j ACCEPT
 # protheus site suporte
 iptables -t filter -I FORWARD -p tcp -m multiport --dports 449,448 -j ACCEPT
 iptables -t filter -I FORWARD -p tcp -m multiport --sports 449,448 -j ACCEPT
+# protheus tss
+iptables -t filter -I FORWARD -p tcp --dport 8011 -j ACCEPT
+#iptables -t filter -I FORWARD -p tcp --sport 8011 -j ACCEPT
 # site samarithano
 iptables -t filter -I FORWARD -p tcp --dport 8080 -j ACCEPT
 iptables -t filter -I FORWARD -p tcp --sport 8080 -j ACCEPT
@@ -251,6 +248,9 @@ iptables -t filter -I FORWARD -p tcp --dport 465 -j ACCEPT
 # Ligacoes Whatsapp
 iptables -t filter -I FORWARD -p udp --dport 3478 -j ACCEPT
 iptables -t filter -I FORWARD -p udp --sport 3478 -j ACCEPT
+# Mensagens Whatsapp Iphone
+iptables -t filter -I FORWARD -p tcp -m multiport --dports 5222,5223 -j ACCEPT
+iptables -t filter -I FORWARD -p tcp -m multiport --sports 5222,5223 -j ACCEPT
 # Ligacoes FaceTime Apple
 iptables -t filter -I FORWARD -p tcp --dport 5223 -j ACCEPT
 iptables -t filter -I FORWARD -p tcp --sport 5223 -j ACCEPT
@@ -267,35 +267,22 @@ iptables -t filter -I FORWARD -p udp --sport 5938 -j ACCEPT
 iptables -t filter -I FORWARD -p tcp -m multiport --sports 3056,5224,3688,50573,50579,50581,50582,50601,50602,50603,50604,50640,50641,50651,50652 -j ACCEPT
 iptables -t filter -I FORWARD -p tcp -m multiport --sports 50705,50708,50709,50716,50750,50751,50752 -j ACCEPT
 iptables -t filter -I FORWARD -p tcp -m multiport --dports 3056,3688,5224,5226,8857,8876,50625,50628,50719 -j ACCEPT
+# Exames PUC Campinas - Carminda
+iptables -t filter -I FORWARD -p tcp --dport 8082 -j ACCEPT
 
-
-
-### REDIRECIONAMENTOS
- 
-# apache 192.168.0.10
-#iptables -t nat -I PREROUTING -d 192.168.1.104 -p tcp --dport 80 -j DNAT --to 192.168.0.10:80
-#iptables -t nat -I PREROUTING -d 192.168.1.104 -p tcp --dport 8080 -j DNAT --to 192.168.0.10:80
-#iptables -t nat -I PREROUTING -d 192.168.1.104 -p tcp --dport 81 -j DNAT --to 192.168.0.10:80
-# cameras de seguranca
-iptables -t nat -I PREROUTING -p tcp -d 189.109.62.50 --dport 9000 -j DNAT --to 192.168.1.50:9000
-iptables -t nat -I PREROUTING -p tcp -d 189.109.62.50 --dport 9001 -j DNAT --to 192.168.1.50:9001
-iptables -t nat -I PREROUTING -p tcp -d 189.109.62.50 --dport 9002 -j DNAT --to 192.168.1.50:9002
-iptables -t nat -I PREROUTING -p tcp -d 189.109.62.50 --dport 9003 -j DNAT --to 192.168.1.50:9003
-iptables -t nat -I PREROUTING -p tcp -d 189.109.62.50 --dport 9006 -j DNAT --to 192.168.1.85:9006
-iptables -t nat -I PREROUTING -p tcp -d 189.109.62.50 --dport 9007 -j DNAT --to 192.168.1.85:9007
-iptables -t nat -I PREROUTING -p tcp -d 189.109.62.50 --dport 9008 -j DNAT --to 192.168.1.85:9008
-iptables -t nat -I PREROUTING -p tcp -d 189.109.62.50 --dport 9009 -j DNAT --to 192.168.1.85:9009
-iptables -t nat -I PREROUTING -p tcp -d 189.109.62.50 --dport 8001 -j DNAT --to 192.168.1.86:8001
-iptables -t nat -I PREROUTING -p tcp -d 189.109.62.50 --dport 8002 -j DNAT --to 192.168.1.86:8002
-iptables -t nat -I PREROUTING -p tcp -d 189.109.62.50 --dport 8003 -j DNAT --to 192.168.1.86:8003
- 
  
 ### BLOQUEIOS POR STRING
-iptables -I FORWARD -s 192.168.1.0/24 -m string --algo kmp --string "thepiratebay.sx" -j DROP
-iptables -I FORWARD -s 192.168.1.0/24 -m string --algo kmp --string "gwea.com" -j DROP
+iptables -I FORWARD -s 192.168.0.0/24 -m string --algo kmp --string "thepiratebay.sx" -j DROP
+iptables -I FORWARD -s 192.168.0.0/24 -m string --algo kmp --string "gwea.com" -j DROP
 #iptables -I FORWARD -s 192.168.1.0/24 -m string --algo kmp --string "youtube.com" -j DROP
 #iptables -I FORWARD -s 192.168.1.0/24 -m string --algo kmp --string "facebook.com" -j DROP
 #iptables -I FORWARD -s 192.168.1.0/24 -m string --algo kmp --string "globoesporte.globo.com" -j DROP
 
+# LIBERACAO POR STRING
+#iptables -I FORWARD -s 192.168.1.18 -m string --algo kmp --string "youtube.com" -j ACCEPT    # Lucas cabeado
+
+
 ### BLOQUEIOS DE USUARIOS
-#iptables -I FORWARD -s 192.168.1.5 -j DROP
+#iptables -I FORWARD -s 192.168.1.149 -j DROP
+
+
