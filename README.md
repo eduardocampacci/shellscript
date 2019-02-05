@@ -56,3 +56,7 @@ Obs.: Os 3 scripts, possuem interacao para atribuir valores nas variaveis
 - Script para localizar arquivos antigos.
 - Com interacao para atribuir valores nas variaveis PASTA, DIAS e LOG.
 - Exporta um log em .csv, para que seja possivel analise. 
+
+==============================================================================================
+
+
