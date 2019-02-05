@@ -38,3 +38,21 @@ Deixe o script p/ inicializar junto com o sistema operacional no **/etc/rc.local
 /etc/init.d/monitorEnergia.sh > /var/log/monitorEnergia.log
 ```
 ==============================================================================================
+
+## Manipulação de arquivos antigos e duplicados.
+Obs.: Os 3 scripts, possuem interacao para atribuir valores nas variaveis
+
+1. dupFiles.sh
+- Script para localizar arquivos duplicados. 
+- Com interação para atribuir valores nas variaveis DIRETORIO e LOGS.
+- Exporta um log em .xls, para que seja possivel analise. 
+
+2. moveOldFiles.sh 
+- Script para mover arquivos antigos.
+- Com interacao para atribuir valores nas variaveis PASTA, DIAS e BACKUP.
+- Este script move todos os arquivos antigos p/ a pasta de backup.
+
+3. oldFiles.sh
+- Script para localizar arquivos antigos.
+- Com interacao para atribuir valores nas variaveis PASTA, DIAS e LOG.
+- Exporta um log em .csv, para que seja possivel analise. 
