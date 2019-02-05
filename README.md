@@ -10,6 +10,8 @@ Obs.: Os 3 scripts devem ser executados na sequencia.:
 2. balanceamento.sh 
 3. failover.sh
 
+Obs.: Ajuste os scripts de acordo com sua infra.
+
 Deixe os scripts p/ inicializar junto com o sistema operacional no **/etc/rc.local**
 
 ```sh
