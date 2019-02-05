@@ -1,7 +1,7 @@
  #!/bin/sh
 # Copyright (C) 2017
 
-# FIREWALL HEWITT EQUIPAMENTOS LTDA
+
 # Por Eduardo Campacci - 07/09/2017
 
 
@@ -274,15 +274,15 @@ iptables -t filter -I FORWARD -p tcp --dport 8082 -j ACCEPT
 ### BLOQUEIOS POR STRING
 iptables -I FORWARD -s 192.168.0.0/24 -m string --algo kmp --string "thepiratebay.sx" -j DROP
 iptables -I FORWARD -s 192.168.0.0/24 -m string --algo kmp --string "gwea.com" -j DROP
-#iptables -I FORWARD -s 192.168.1.0/24 -m string --algo kmp --string "youtube.com" -j DROP
-#iptables -I FORWARD -s 192.168.1.0/24 -m string --algo kmp --string "facebook.com" -j DROP
-#iptables -I FORWARD -s 192.168.1.0/24 -m string --algo kmp --string "globoesporte.globo.com" -j DROP
+#iptables -I FORWARD -s 192.168.0.0/24 -m string --algo kmp --string "youtube.com" -j DROP
+#iptables -I FORWARD -s 192.168.0.0/24 -m string --algo kmp --string "facebook.com" -j DROP
+#iptables -I FORWARD -s 192.168.0.0/24 -m string --algo kmp --string "globoesporte.globo.com" -j DROP
 
 # LIBERACAO POR STRING
-#iptables -I FORWARD -s 192.168.1.18 -m string --algo kmp --string "youtube.com" -j ACCEPT    # Lucas cabeado
+#iptables -I FORWARD -s 192.168.0.18 -m string --algo kmp --string "youtube.com" -j ACCEPT    # Lucas cabeado
 
 
 ### BLOQUEIOS DE USUARIOS
-#iptables -I FORWARD -s 192.168.1.149 -j DROP
+#iptables -I FORWARD -s 192.168.0.149 -j DROP
 
 
