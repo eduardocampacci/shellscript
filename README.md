@@ -31,7 +31,8 @@ Obs.: Realizar o teste de ping, em 3 dispositivos de rede que estejam fora do no
 
 1. monitorEnergia.sh
 
-Obs.: Ajuste as variaveis do script, de acordo com sua infra.
+Obs.: Ajuste as variaveis e hosts no comando ssh do script, de acordo com sua infra.
+
 
 Deixe o script p/ inicializar junto com o sistema operacional no **/etc/rc.local**
 
