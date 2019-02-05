@@ -11,6 +11,7 @@ Obs.: Os 3 scripts devem ser executados na sequencia.:
 3. failover.sh
 
 Obs.: Ajuste as variaveis dos scripts, de acordo com sua infra. 
+
 Obs.: Não esqueça de criar as tabelas de roteamento, em /etc/iproute2/rt_tables. Inclua as tabelas, exemplo.:
 ```sh
 # Tabelas de balanceamento de links
