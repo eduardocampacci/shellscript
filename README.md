@@ -10,7 +10,13 @@ Obs.: Os 3 scripts devem ser executados na sequencia.:
 2. balanceamento.sh 
 3. failover.sh
 
-Obs.: Ajuste as variaveis dos scripts, de acordo com sua infra.
+Obs.: Ajuste as variaveis dos scripts, de acordo com sua infra. 
+Obs.: Não esqueça de criar as tabelas de roteamento, em /etc/iproute2/rt_tables. Inclua as tabelas, exemplo.:
+```sh
+# Tabelas de balanceamento de links
+200 link1 #GVT
+201 link2 #VIVO
+```
 
 Deixe os scripts p/ inicializar junto com o sistema operacional no **/etc/rc.local**
 
