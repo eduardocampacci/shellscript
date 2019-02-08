@@ -41,11 +41,11 @@ Obs.: Realizar o teste de ping, em 3 dispositivos de rede que estejam fora do no
 Obs.: Ajuste as variaveis e hosts no comando ssh do script, de acordo com sua infra.
 
 
-Deixe o script p/ inicializar junto com o sistema operacional no **/etc/rc.local**
+Adicione o script no crontab, para que seja agendado um periodo de execução e verificação. 
 
 ```sh
 # Monitor de energia
-/etc/init.d/monitorEnergia.sh > /var/log/monitorEnergia.log
+*/10 * * * *    /etc/init.d/monitorEnergia.sh > /var/log/monitorEnergia.log
 ```
 ==============================================================================================
 
