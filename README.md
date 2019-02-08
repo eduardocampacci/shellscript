@@ -41,7 +41,8 @@ Obs.: Realizar o teste de ping, em 3 dispositivos de rede que estejam fora do no
 Obs.: Ajuste as variaveis e hosts no comando ssh do script, de acordo com sua infra.
 
 
-Adicione o script no crontab, para que seja agendado um periodo de execução e verificação. 
+Adicione o script no crontab, para que seja agendado um periodo de execução e verificação.
+No exemplo abaixo, esta agendado p/ ser executado a cada 10 minutos.
 
 ```sh
 # Monitor de energia
