@@ -91,7 +91,126 @@ rclone config
 ```
 Obs.: Siga o manual do site, p/ configurar corretamente o rclone de acordo com o serviço desejado. 
 
-4. Crie o agendamento no crontab, no exemplo foi agendado p/ executar a cada 30min.  
+4. Opções de configuração.
+```sh
+➜  rclone rclone config
+No remotes found - make a new one
+n) New remote
+s) Set configuration password
+q) Quit config
+n/s/q> n
+name> dropbox_hw
+Type of storage to configure.
+Enter a string value. Press Enter for the default ("").
+Choose a number from below, or type in your own value
+ 1 / A stackable unification remote, which can appear to merge the contents of several remotes
+   \ "union"
+ 2 / Alias for a existing remote
+   \ "alias"
+ 3 / Amazon Drive
+   \ "amazon cloud drive"
+ 4 / Amazon S3 Compliant Storage Providers (AWS, Ceph, Dreamhost, IBM COS, Minio)
+   \ "s3"
+ 5 / Backblaze B2
+   \ "b2"
+ 6 / Box
+   \ "box"
+ 7 / Cache a remote
+   \ "cache"
+ 8 / Dropbox
+   \ "dropbox"
+ 9 / Encrypt/Decrypt a remote
+   \ "crypt"
+10 / FTP Connection
+   \ "ftp"
+11 / Google Cloud Storage (this is not Google Drive)
+   \ "google cloud storage"
+12 / Google Drive
+   \ "drive"
+13 / Hubic
+   \ "hubic"
+14 / JottaCloud
+   \ "jottacloud"
+15 / Local Disk
+   \ "local"
+16 / Mega
+   \ "mega"
+17 / Microsoft Azure Blob Storage
+   \ "azureblob"
+18 / Microsoft OneDrive
+   \ "onedrive"
+19 / OpenDrive
+   \ "opendrive"
+20 / Openstack Swift (Rackspace Cloud Files, Memset Memstore, OVH)
+   \ "swift"
+21 / Pcloud
+   \ "pcloud"
+22 / QingCloud Object Storage
+   \ "qingstor"
+23 / SSH/SFTP Connection
+   \ "sftp"
+24 / Webdav
+   \ "webdav"
+25 / Yandex Disk
+   \ "yandex"
+26 / http Connection
+   \ "http"
+Storage> 8
+** See help for dropbox backend at: https://rclone.org/dropbox/ **
+
+Dropbox App Client Id
+Leave blank normally.
+Enter a string value. Press Enter for the default ("").
+client_id> 
+Dropbox App Client Secret
+Leave blank normally.
+Enter a string value. Press Enter for the default ("").
+client_secret> 
+Edit advanced config? (y/n)
+y) Yes
+n) No
+y/n> n
+Remote config
+Use auto config?
+ * Say Y if not sure
+ * Say N if you are working on a remote or headless machine
+y) Yes
+n) No
+y/n> n
+For this to work, you will need rclone available on a machine that has a web browser available.
+Execute the following on your machine:
+        rclone authorize "dropbox"
+Then paste the result below:
+result> COLADO AQUI O TOKEN PERMITINDO O ACESSO DO RCLONE NO DROPBOX
+2019/02/18 11:12:53 ERROR : Failed to save new token in config file: section 'dropbox_hw' not found
+--------------------
+[dropbox_hw]
+type = dropbox
+token = AQUI O TOKEN PERMITINDO O ACESSO DO RCLONE NO DROPBOX
+--------------------
+y) Yes this is OK
+e) Edit this remote
+d) Delete this remote
+y/e/d> y
+Current remotes:
+
+Name                 Type
+====                 ====
+dropbox_hw           dropbox
+
+e) Edit existing remote
+n) New remote
+d) Delete remote
+r) Rename remote
+c) Copy remote
+s) Set configuration password
+q) Quit config
+e/n/d/r/c/s/q> q
+
+```
+
+
+5. Crie o agendamento no crontab, no exemplo foi agendado p/ executar a cada 30min.  
 ```sh
 # rclone
 */30 * * * *    /etc/init.d/rclone-cron.sh > /var/log/rclone-cron.log
