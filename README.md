@@ -70,4 +70,46 @@ Obs.: Os 3 scripts, possuem interacao para atribuir valores nas variaveis
 
 ==============================================================================================
 
+==============================================================================================
 
+## RClone - Sincronização com serviços de armazenamento na nuvem.
+Obs.: Rclone é um programa de linha de comando, para sincronizar arquivos e diretórios.
+
+- Alguns serviços suportados.: 
+Alibaba Cloud (Aliyun) Object Storage System (OSS)  
+Amazon Drive   (See note)
+Amazon S3  
+Backblaze B2  
+Box  
+Ceph  
+DigitalOcean Spaces  
+Dreamhost  
+Dropbox  
+FTP  
+Google Cloud Storage  
+Google Drive  
+HTTP  
+Hubic  
+Jottacloud  
+IBM COS S3  
+Memset Memstore  
+Mega  
+Microsoft Azure Blob Storage  
+Microsoft OneDrive  
+Minio  
+Nextcloud  
+OVH  
+OpenDrive  
+Openstack Swift  
+Oracle Cloud Storage  
+ownCloud  
+pCloud  
+put.io  
+QingStor  
+Rackspace Cloud Files  
+Scaleway  
+SFTP  
+Wasabi  
+WebDAV  
+Yandex Disk  
+The local filesystem  
