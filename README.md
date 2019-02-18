@@ -74,7 +74,7 @@ Obs.: Os 3 scripts, possuem interacao para atribuir valores nas variaveis
 Obs.: Rclone é um programa de linha de comando, para sincronizar arquivos e diretórios.
 
 - Acesse o site https://rclone.org/ 
-- E veja os serviços suportados e manuais de configuração. 
+- Veja os serviços suportados e manuais de configuração. 
 
 
 
@@ -93,7 +93,7 @@ Obs.: Siga o manual do site, p/ configurar corretamente o rclone de acordo com o
 
 4. Crie o agendamento no crontab, no exemplo foi agendado p/ executar a cada 30min.  
 ```sh
-# Monitor de energia
+# rclone
 */30 * * * *    /etc/init.d/rclone-cron.sh > /var/log/rclone-cron.log
 ```
 ==============================================================================================
