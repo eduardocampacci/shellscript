@@ -215,4 +215,10 @@ e/n/d/r/c/s/q> q
 # rclone
 */30 * * * *    /etc/init.d/rclone-cron.sh > /var/log/rclone-cron.log
 ```
+
+OBS.: No script rclone-cron.sh, ajuste a largura de banda usada, de acordo com a sua necessidade.
+```sh
+# --bwlimit=0.375M - Segue.: 10M link total, usar 3M do link total p/ o rclone. Então 3/8 = 0.375M
+rclone sync -P --bwlimit=0.375M /home/eduardo/Documentos/rclone/ dropbox_hw:arquivos/rclone
+```
 ==============================================================================================
