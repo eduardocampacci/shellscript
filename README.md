@@ -112,5 +112,8 @@ WebDAV
 Yandex Disk  
 The local filesystem  
 
-1. Baixe e instale o rclone. 
-https://rclone.org/downloads/
+1. Baixe e instale o rclone.: https://rclone.org/downloads/
+2. Teste o programa.
+```
+rclone --help
+```
