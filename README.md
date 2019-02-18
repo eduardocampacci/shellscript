@@ -73,57 +73,27 @@ Obs.: Os 3 scripts, possuem interacao para atribuir valores nas variaveis
 ## RClone - Sincronização com serviços de armazenamento na nuvem.
 Obs.: Rclone é um programa de linha de comando, para sincronizar arquivos e diretórios.
 
-- Alguns serviços suportados.: 
-Alibaba Cloud (Aliyun) Object Storage System (OSS)  
-Amazon Drive   (See note)
-Amazon S3  
-Backblaze B2  
-Box  
-Ceph  
-DigitalOcean Spaces  
-Dreamhost  
-Dropbox  
-FTP  
-Google Cloud Storage  
-Google Drive  
-HTTP  
-Hubic  
-Jottacloud  
-IBM COS S3  
-Memset Memstore  
-Mega  
-Microsoft Azure Blob Storage  
-Microsoft OneDrive  
-Minio  
-Nextcloud  
-OVH  
-OpenDrive  
-Openstack Swift  
-Oracle Cloud Storage  
-ownCloud  
-pCloud  
-put.io  
-QingStor  
-Rackspace Cloud Files  
-Scaleway  
-SFTP  
-Wasabi  
-WebDAV  
-Yandex Disk  
-The local filesystem  
-
-
+- Acesse o site https://rclone.org/ 
+- E veja os serviços suportados e manuais de configuração. 
 
 
 
 1. Baixe e instale o rclone.: https://rclone.org/downloads/
 
 2. Teste o programa.
-```
+```sh
 rclone --help
 ```
 
 3. Configure o rclone.
-```
+```sh
 rclone config
 ```
+Obs.: Siga o manual do site, p/ configurar corretamente o rclone de acordo com o serviço desejado. 
+
+4. Crie o agendamento no crontab, no exemplo foi agendado p/ executar a cada 30min.  
+```sh
+# Monitor de energia
+*/30 * * * *    /etc/init.d/rclone-cron.sh > /var/log/rclone-cron.log
+```
+==============================================================================================
