@@ -70,8 +70,6 @@ Obs.: Os 3 scripts, possuem interacao para atribuir valores nas variaveis
 
 ==============================================================================================
 
-==============================================================================================
-
 ## RClone - Sincronização com serviços de armazenamento na nuvem.
 Obs.: Rclone é um programa de linha de comando, para sincronizar arquivos e diretórios.
 
@@ -113,3 +111,6 @@ Wasabi
 WebDAV  
 Yandex Disk  
 The local filesystem  
+
+1. Baixe e instale o rclone. 
+https://rclone.org/downloads/
