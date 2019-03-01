@@ -218,9 +218,12 @@ e/n/d/r/c/s/q> q
 
 OBS.: No script rclone-cron.sh, ajuste a largura de banda, arquivos que devem ser excluidos, caminho de origem e caminho de destino.
 ```sh
+# -P é para exibir o progresso da sincronização. Não indicado p/ uso no cron.
+# -v é modo verboso.
+# --log-file=/var/log/rclone.log - arquivo de log.
 # --bwlimit=0.375M - Segue.: 10M link total, usar 3M do link total p/ o rclone. Então 3/8 = 0.375M
-# --exclude "*.{pst,tar}" - Exclui da sincronização arquivos da extensão .pst e .tar.
-# --tpslimit=9 - Limitar o numero de requisição.
-rclone sync -P --bwlimit=0.375M --tpslimit=9 --exclude "*.{pst,tar,db}" /home/eduardo/Documentos/rclone/ dropbox_hw:arquivos/rclone
+# --exclude "*.{pst,tar,db}" - Exclui da sincronização arquivos da extensão .pst .tar e .db.
+# --tpslimit=9 - Limitar o numero de requisiçoes. 
+rclone -v sync --log-file=/var/log/rclone.log --bwlimit=0.375M --tpslimit=9 --exclude "*.{pst,tar,db}" /home/eduardo/Documentos/rclone/ dropbox_hw:arquivos/rclone
 ```
 ==============================================================================================
