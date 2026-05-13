@@ -12,6 +12,7 @@ Repositório com scripts Shell utilizados para estudos, automação e administra
 | `power/` | Scripts relacionados a energia e desligamento controlado |
 | `samba4/` | Scripts para rotinas de Samba AD |
 | `system/` | Scripts auxiliares de inicialização e sistema |
+| `printer/` | Scripts de controle e coleta de contadores de impressoras |
 
 ## Observações
 
