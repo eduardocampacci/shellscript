@@ -1,0 +1,20 @@
+# Logs
+*.log
+
+# Temporários
+*.tmp
+*.bak
+*.old
+
+# Vim
+*.swp
+
+# VSCode
+.vscode/
+
+# Credenciais
+*.pem
+*.key
+*.secret
+*.password
+*.creds
