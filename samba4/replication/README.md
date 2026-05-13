@@ -1,0 +1,1 @@
+# Replicação SYSVOL Samba4
