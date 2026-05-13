@@ -1,25 +1,21 @@
 # Shell Scripts
 
-Coleção de scripts utilizados para automação, administração de servidores Linux, rede, backup e manutenção.
+Repositório com scripts Shell utilizados para estudos, automação e administração de ambientes Linux.
 
 ## Estrutura
 
-### backup
-Scripts relacionados a backup e sincronização.
-
-### files
-Scripts para organização, movimentação e limpeza de arquivos.
-
-### network
-Scripts de firewall, failover e balanceamento de rede.
-
-### power
-Scripts relacionados a energia e monitoramento.
-
-### system
-Scripts de inicialização e sistema.
+| Pasta | Descrição |
+|---|---|
+| `backup/` | Scripts de backup e sincronização com nuvem |
+| `files/` | Scripts para localizar, listar e mover arquivos |
+| `network/` | Scripts de firewall, balanceamento e failover de links |
+| `power/` | Scripts relacionados a energia e desligamento controlado |
+| `samba4/` | Scripts para rotinas de Samba AD |
+| `system/` | Scripts auxiliares de inicialização e sistema |
 
 ## Observações
 
-- Scripts utilizados em laboratório e produção.
-- Sempre revise antes de executar em ambiente produtivo. 
+- Revise as variáveis antes de executar qualquer script.
+- Alguns scripts precisam ser executados como `root`.
+- Ajuste IPs, interfaces, caminhos e credenciais conforme seu ambiente.
+- Scripts usados em laboratório e produção.
