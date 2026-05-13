@@ -31,6 +31,37 @@ Executa:
 - ssh
 - tar
 - samba-tool
+- Autenticação SSH por chave entre os servidores
+
+## Configuração
+
+### SSH
+
+É necessário configurar autenticação SSH por chave entre os servidores envolvidos no backup e sincronização.
+
+Exemplo:
+
+```bash
+ssh-keygen
+ssh-copy-id root@IP_DO_SERVIDOR
+```
+
+
+### Credenciais Samba
+
+Crie o arquivo: /root/.samba_creds
+
+```ini
+username=Administrator
+password=SENHA
+```
+
+Ajuste permissões:
+
+```bash
+chmod 600 /root/.samba_creds
+```
+
 
 ## Observações
 
